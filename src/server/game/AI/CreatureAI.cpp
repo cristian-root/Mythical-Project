@@ -166,7 +166,12 @@ void CreatureAI::MoveInLineOfSight(Unit* who)
                 !who->IsInCombat() ||                                         // if not in combat, nothing more to do
                 !me->IsWithinDist(who, ATTACK_DISTANCE, true, false))                      // if in combat and in dist - neutral to all can actually assist other creatures
             return;
+    // No hacer nada si es una mascota o un tótem y retornar
+    if ((who->GetTypeId() == TYPEID_UNIT && who->ToCreature()->IsPet()) ||
+        (who->GetTypeId() == TYPEID_UNIT && who->ToCreature()->IsTotem()))
+        return;
 
+    // Si es un jugador o cualquier otra unidad válida y la criatura está en estado agresivo, comienza el ataque
     if (me->HasReactState(REACT_AGGRESSIVE) && me->CanStartAttack(who))
         AttackStart(who);
 }

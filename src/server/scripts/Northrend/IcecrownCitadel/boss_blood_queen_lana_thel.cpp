@@ -504,7 +504,8 @@ public:
                     me->GetMotionMaster()->MoveTakeoff(POINT_AIR, airPos, 0.642857f * 7.0f);
                     break;
                 case EVENT_AIR_FLY_DOWN:
-                    me->GetMotionMaster()->MoveLand(POINT_GROUND, centerPos, 0.642857f * 7.0f);
+                    //me->GetMotionMaster()->MoveLand(POINT_GROUND, centerPos, 0.642857f * 7.0f);
+                    me->GetMotionMaster()->MovePoint(POINT_GROUND, centerPos, 0.642857f * 7.0f);
                     break;
             }
 

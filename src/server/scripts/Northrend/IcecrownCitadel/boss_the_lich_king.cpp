@@ -958,7 +958,8 @@ public:
                     events.ScheduleEvent(EVENT_QUAKE_2, 62s + 500ms);
                     events.ScheduleEvent(EVENT_PAIN_AND_SUFFERING, 3500ms, EVENT_GROUP_ABILITIES);
                     events.ScheduleEvent(EVENT_SUMMON_ICE_SPHERE, 8s, EVENT_GROUP_ABILITIES);
-                    events.ScheduleEvent(EVENT_SUMMON_RAGING_SPIRIT, 4s, EVENT_GROUP_ABILITIES);
+                    //events.ScheduleEvent(EVENT_SUMMON_RAGING_SPIRIT, 4s, EVENT_GROUP_ABILITIES);
+                    events.ScheduleEvent(EVENT_SUMMON_RAGING_SPIRIT, 5s, EVENT_GROUP_ABILITIES);
                     break;
                 default:
                     break;
@@ -2222,7 +2223,8 @@ public:
         void Reset() override
         {
             _events.Reset();
-            _events.ScheduleEvent(EVENT_RAGING_SPIRIT_UNROOT, 3s);
+            //_events.ScheduleEvent(EVENT_RAGING_SPIRIT_UNROOT, 3s);
+            _events.ScheduleEvent(EVENT_RAGING_SPIRIT_UNROOT, 2s);
             _events.ScheduleEvent(EVENT_SOUL_SHRIEK, 12s, 15s);
 
             bool valid = false;

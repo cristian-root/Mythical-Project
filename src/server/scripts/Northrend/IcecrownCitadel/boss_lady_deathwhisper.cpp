@@ -438,13 +438,25 @@ public:
                     SummonWaveP2();
                     events.Repeat(45s);
                     break;
-                case EVENT_SPELL_SUMMON_SHADE:
+                /*case EVENT_SPELL_SUMMON_SHADE:
                     {
                         uint8 count = 1;
                         if (GetDifficulty() == RAID_DIFFICULTY_25MAN_NORMAL)
                             count = 2;
                         else if (GetDifficulty() == RAID_DIFFICULTY_25MAN_HEROIC)
                             count = 3;
+
+                        std::list<Unit*> targets;
+                        SelectTargetList(targets, count, SelectTargetMethod::Random, 0, NonTankTargetSelector(me, true));
+                        if (!targets.empty())
+                            for (std::list<Unit*>::iterator itr = targets.begin(); itr != targets.end(); ++itr)
+                                me->CastSpell(*itr, SPELL_SUMMON_SHADE, true);
+                    }
+                    events.Repeat(12s);
+                    break; */
+                case EVENT_SPELL_SUMMON_SHADE:
+                    {
+                        uint8 count = 1; // Siempre seleccionará a 1 jugador
 
                         std::list<Unit*> targets;
                         SelectTargetList(targets, count, SelectTargetMethod::Random, 0, NonTankTargetSelector(me, true));
