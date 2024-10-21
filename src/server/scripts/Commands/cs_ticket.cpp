@@ -199,7 +199,15 @@ public:
         return true;
     }
 
-    static bool HandleGMTicketCompleteCommand(ChatHandler* handler, uint32 ticketId)
+    //static bool HandleGMTicketCompleteCommand(ChatHandler* handler, uint32 ticketId)
+    //Aqui es la implementacion del ticket complete
+    static bool HandleGMTicketCompleteCommand(ChatHandler* handler, char const* args)
+    {
+        if (!*args)
+            return false;
+
+        char* ticketIdStr = strtok((char*)args, " ");
+        uint32 ticketId = atoi(ticketIdStr);
     {
         GmTicket* ticket = sTicketMgr->GetTicket(ticketId);
         if (!ticket || ticket->IsClosed() || ticket->IsCompleted())

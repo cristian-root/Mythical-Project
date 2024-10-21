@@ -6681,9 +6681,11 @@ SpellCastResult Spell::CheckCast(bool strict)
                         allowMount = it->AllowMount;
                     if (m_caster->IsPlayer() && !allowMount && !m_spellInfo->AreaGroupId)
                         return SPELL_FAILED_NO_MOUNTS_ALLOWED;
-
-                    if (m_caster->IsInDisallowedMountForm())
-                        return SPELL_FAILED_NOT_SHAPESHIFT;
+                    // Comentamos esta línea para permitir montar en cualquier forma transformada
+                    //if (m_caster->IsInDisallowedMountForm())
+                        //return SPELL_FAILED_NOT_SHAPESHIFT;
+                        // Comentamos o eliminamos este bloque para permitir montar en cualquier forma transformada
+                    /*
 
                     // xinef: dont allow to cast mounts in specific transforms
                     if (m_caster->getTransForm())
@@ -6691,7 +6693,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                             if (transformSpellInfo->HasAttribute(SPELL_ATTR0_NO_IMMUNITIES) &&
                                     !transformSpellInfo->HasAttribute(SpellAttr0(SPELL_ATTR0_ALLOW_WHILE_MOUNTED | SPELL_ATTR0_AURA_IS_DEBUFF)))
                                 return SPELL_FAILED_NOT_SHAPESHIFT;
-
+                    */
                     break;
                 }
             case SPELL_AURA_RANGED_ATTACK_POWER_ATTACKER_BONUS:

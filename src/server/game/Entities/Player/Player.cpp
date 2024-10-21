@@ -84,7 +84,6 @@
 #include "WorldPacket.h"
 #include "WorldSession.h"
 #include <cmath>
-#include "../../../../modules/mod-transmog-poszer/src/TransmogDisplayVendorConf.h"
 
 /// @todo: this import is not necessary for compilation and marked as unused by the IDE
 //  however, for some reasons removing it would cause a damn linking issue
@@ -3569,7 +3568,7 @@ void Player::_LoadSpellCooldowns(PreparedQueryResult result)
 {
     // some cooldowns can be already set at aura loading...
 
-    //QueryResult* result = CharacterDatabase.Query("SELECT spell, category, item, time FROM character_spell_cooldown WHERE guid = '{}'", GetGUID().GetCounter());
+    //QueryResult* result = CharacterDatabase.Query("SELECT spell, category, item, time FROM character_spell_cooldown WHERE guid = '{}'", GetGUID().GetCounter()());
 
     if (result)
     {
@@ -10727,13 +10726,6 @@ bool Player::BuyItemFromVendorSlot(ObjectGuid vendorguid, uint32 vendorslot, uin
     ItemTemplate const* pProto = sObjectMgr->GetItemTemplate(item);
     if (!pProto)
     {
-        SendBuyError(BUY_ERR_CANT_FIND_ITEM, NULL, item, 0);
-        return false;
-    }
-    // Poszer this prevents transmog vendor and gives item not found error so we'll fix this shizz
-    Creature* creature = GetNPCIfCanInteractWith(vendorguid, UNIT_NPC_FLAG_VENDOR);
-    if (!(pProto->AllowableClass & getClassMask()) && pProto->Bonding == BIND_WHEN_PICKED_UP && !IsGameMaster() && creature->GetScriptName() != "NPC_TransmogDisplayVendor")
-    {
         SendBuyError(BUY_ERR_CANT_FIND_ITEM, nullptr, item, 0);
         return false;
     }
@@ -10749,17 +10741,11 @@ bool Player::BuyItemFromVendorSlot(ObjectGuid vendorguid, uint32 vendorslot, uin
         return false;
     }
 
-    // Creature* creature = GetNPCIfCanInteractWith(vendorguid, UNIT_NPC_FLAG_VENDOR);
+    Creature* creature = GetNPCIfCanInteractWith(vendorguid, UNIT_NPC_FLAG_VENDOR);
     if (!creature)
     {
         LOG_DEBUG("network", "WORLD: BuyItemFromVendor - Unit ({}) not found or you can't interact with him.", vendorguid.ToString());
         SendBuyError(BUY_ERR_DISTANCE_TOO_FAR, nullptr, item, 0);
-        return false;
-    }
-	
-    if (creature->GetScriptName() == "NPC_TransmogDisplayVendor")
-    {
-        TransmogDisplayVendorMgr::HandleTransmogrify(this, creature, vendorslot, item);
         return false;
     }
 

@@ -29,7 +29,6 @@
 #include "StringConvert.h"
 #include "Tokenize.h"
 #include "WorldPacket.h"
-#include "../../../../modules/mod-transmog-poszer/src/TransmogDisplayVendorConf.h"
 
 void AddItemsSetItem(Player* player, Item* item)
 {
@@ -520,7 +519,6 @@ bool Item::LoadFromDB(ObjectGuid::LowType guid, ObjectGuid owner_guid, Field* fi
 void Item::DeleteFromDB(CharacterDatabaseTransaction trans, ObjectGuid::LowType itemGuid)
 {
     sScriptMgr->OnGlobalItemDelFromDB(trans, itemGuid);
-	TransmogDisplayVendorMgr::DeleteFakeFromDB(itemGuid); // custom
     CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_ITEM_INSTANCE);
     stmt->SetData(0, itemGuid);
     trans->Append(stmt);
