@@ -189,20 +189,6 @@ struct SpellModifier
     Aura* const ownerAura;
 };
 
-// customization transmogp poszer
-typedef std::unordered_map<uint64, uint32> TransmogMapType;
-
-#ifdef PRESETS
-typedef std::map<uint8, uint32> PresetslotMapType;
-struct PresetData
-{
-    std::string name;
-    PresetslotMapType slotMap; // slotMap[slotId] = entry
-};
-typedef std::map<uint8, PresetData> PresetMapType;
-#endif
-// end customization poszer
-
 typedef std::unordered_map<uint32, PlayerTalent*> PlayerTalentMap;
 typedef std::unordered_map<uint32, PlayerSpell*> PlayerSpellMap;
 typedef std::list<SpellModifier*> SpellModList;
@@ -2611,13 +2597,6 @@ public:
     void SetServerSideVisibilityDetect(ServerSideVisibilityType type, AccountTypes sec);
 
     static std::unordered_map<int, bgZoneRef> bgZoneIdToFillWorldStates; // zoneId -> FillInitialWorldStates
-	
-	// customization transmog poszer
-    TransmogMapType transmogMap; // transmogMap[iGUID] = entry
-    #ifdef PRESETS
-            PresetMapType presetMap; // presetMap[presetId] = presetData
-    #endif
-    // end customization transmog poszer
 
     void SetFarSightDistance(float radius);
     void ResetFarSightDistance();
